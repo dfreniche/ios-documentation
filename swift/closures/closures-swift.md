@@ -42,6 +42,27 @@ A closure captures the lexical scope where it is defined.
 
 ---
 
+## Closures: in Swift, 1st class citizens
+
+- they're _functional_, but 1st class citizens in an OO world
+- can be stored in constants / variables 
+- can be passed as arguments
+
+---
+
+## Closure Expression Syntax
+
+Closure expression syntax has the following general form:
+
+```
+{ (`parameters`) -> `return type` in
+    `statements`
+}
+```
+
+---
+
+
 ## Closures in Swift I: global functions
 
 ```Swift
@@ -91,13 +112,14 @@ let block = {
 }
 
 block()
+block() // call it again!
 ```
 
 ---
 
 ## Closures in Swift III
 
-We can't do:
+We can't do a 'regular C block':
 
 ```Swift
 print("outside block")
@@ -129,6 +151,7 @@ _ = {
 }()
 ```
 
+- we run the closure
 - we discard the returned value from the closure
 
 ---
@@ -183,15 +206,24 @@ doCalculation(a: 10, b: 10, op: divide)
 ---
 
 
-## Closure Expression Syntax
 
-Closure expression syntax has the following general form:
 
-```
-{ (`parameters`) -> `return type` in
-    `statements`
+## Trailing closures
+
+```swift
+func takeAClosure(closure: () -> ()) {
+    closure()
+}
+
+takeAClosure(closure: {
+    print("Closure inside function call")
+})
+        
+takeAClosure {
+    print("Trailing closure!")
 }
 ```
+
 
 ---
 
@@ -211,7 +243,188 @@ let makeCounter: () -> () -> Int = {
     return f
 }
 
-makeCounter()()
-makeCounter()()
+let counter1 = makeCounter()
+let counter2 = makeCounter()
 
+counter1()
+counter1()
+counter1()
+
+counter2()
+
+```
+
+--- 
+
+## Don't use enumerateObjects to traverse an Array
+
+```swift
+var array: NSArray = ["Some", "strings", "in", "an", "array"]
+
+array.enumerateObjects({ (s, i, end) in
+    print("i \( i ) s  \( s )")
+})
+```
+
+---
+
+
+## High order functions
+
+- Functions that take functions as parameters
+- Map, Filter, Reduce, Flatmap
+- _Let's do something with these fruits_
+
+```swift
+let basket = ["🍏", "🍐", "🍌", "🍉", "🍓"]
+```
+
+---
+
+## Map
+
+- "Do *THIS* to every single element in the list"
+    - __add 1__ to every element in __this list__
+    - __takes__ a function (add one) & a list
+    - __returns__ a list
+- _with a basket of fruit: peel every fruit in this basket_
+- think of __SQL update__  
+
+---
+
+## Map example
+
+```swift
+let basket = ["🍏", "🍐", "🍌", "🍉", "🍓"]
+
+basket.map { (e: String) -> String in
+    return "🍴" + e
+}
+
+
+```
+
+---
+
+## Map Benefits
+
+- map is a level of indirection
+- can be run in parallel (applying a function on element n doesn't depend on element n+1)
+
+---
+
+## Filter
+
+- "I only want oranges from that basket"
+- SQL select WHERE clause
+
+---
+
+
+## Filter example
+
+- "I only want Apples"
+
+```swift
+
+let basket = ["🍏", "🍐", "🍌", "🍉", "🍓", "🖥"]
+
+let newBasket = basket.filter { $0 == "🍏" || $0 == "🖥"
+}
+
+```
+
+---
+
+## Reduce
+
+- __takes__ a function (add) & a list
+- returns just __one__ element
+- _make multi-fruit juice_
+- think of AVG function in SQL
+
+
+---
+
+## Reduce example
+
+```swift
+
+let numbers = [1, 2, 3, 4, 5, 6]
+
+numbers.reduce(0, combine: +) --> 21
+
+```
+
+
+---
+
+
+
+## Flatmap
+
+- Like map, but also "flattens" the list
+- _some of the fruits in the basket are wrapped with paper_
+
+---
+
+## Flatmap example
+
+```swift
+
+// how do you add 2 to all the numbers in this array?
+
+let fa2 = [[1,2],[3],[4,5,6]]
+
+let fa2m = fa2.flatMap({$0}).map({$0 + 2})
+fa2m
+
+
+```
+
+
+---
+
+## Memory management in closures
+
+```swift
+class ViewController: UIViewController {
+    // ...
+    
+    var closure: () -> () = {}
+    
+    @IBAction func clickBtn(_ sender: Any) {
+        closure = {
+            self.doSomething()   // Error: Call to method 'doSomething' in closure 
+                                 // requires explicit 'self.' to make capture semantics explicit 
+        }
+        
+        closure()
+    }
+   
+    func doSomething() {
+        print("Hello")
+    }
+}
+
+```
+
+
+---
+
+
+```swift
+var closure: () -> () = {}
+    
+@IBAction func clickBtn(_ sender: Any) {
+    closure = { [weak self] in
+        self?.doSomething()
+    }
+    
+    closure()
+}
+
+func doSomething() {
+    print("Hello")
+}
 ```
