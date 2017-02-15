@@ -10,6 +10,9 @@ These docs are in Markdown format, prepared to be used with the superb presentat
 ### Swift
 
 - [Swift Closures](swift/closures/closures-swift.md)
+- [Grand Central Dispatch GCD in Swift 3](swift/GCD/GCD-Swift3.md)
+- [NSOperation/NSOperationQueue as an alternative to GCD](swift/nsoperation/NSOperationQueue.md)
+- [How to create a Singleton in Swift without GCD](swift/singleton/singleton.md)
 
 ### Objective-C
 
