@@ -10,6 +10,7 @@ These docs are in Markdown format, prepared to be used with the superb presentat
 ### Swift
 
 - [Swift Closures](swift/closures/closures-swift.md)
+- [How to create a Singleton in Swift without GCD](swift/singleton/singleton.md)
 
 ### Objective-C
 
