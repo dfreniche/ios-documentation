@@ -7,6 +7,10 @@ You can find [my Android notes here](https://github.com/dfreniche/android-docume
 These docs are in Markdown format, prepared to be used with the superb presentation software [Deckset](http://www.decksetapp.com/)
 
 
+### Common
+
+- [Using CocoaPods](common/cocoapods.md)
+
 ### Swift
 
 - [Swift Closures](swift/closures/closures-swift.md)
