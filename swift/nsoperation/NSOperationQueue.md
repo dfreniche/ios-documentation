@@ -156,3 +156,18 @@ class MyOp: Operation {
 
 ```
 
+---
+
+## Adding a name to an OperationQueue
+
+```swift
+let backgroundQueue = OperationQueue()
+backgroundQueue.name = "test queue"
+
+// dispatches this block and continues
+backgroundQueue.addOperation {
+    // prints debug info about this queue
+    print("\(String(describing: OperationQueue.current?.name))")
+}
+
+```
