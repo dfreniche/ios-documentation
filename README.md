@@ -7,18 +7,15 @@ You can find [my Android notes here](https://github.com/dfreniche/android-docume
 These docs are in Markdown format, prepared to be used with the superb presentation software [Deckset](http://www.decksetapp.com/)
 
 
-### Common
+## Topics
 
 - [Using CocoaPods](common/cocoapods.md)
-
-### Swift
-
 - [Swift Closures](swift/closures/closures-swift.md)
 - [Grand Central Dispatch GCD in Swift 3](swift/GCD/GCD-Swift3.md)
 - [NSOperation/NSOperationQueue as an alternative to GCD](swift/nsoperation/NSOperationQueue.md)
 - [How to create a Singleton in Swift without GCD](swift/singleton/singleton.md)
-
-### Objective-C
+- [MapKit notes](maps/mapkit.md)
+- [Core Data, best explained through its own Playground](https://github.com/dfreniche/modern-core-data-playground)
 
 
 ## Contributing
